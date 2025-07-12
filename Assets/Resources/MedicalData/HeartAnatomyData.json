@@ -1,0 +1,259 @@
+{
+  "medicalTerminology": {
+    "turkish": {
+      "heartParts": {
+        "sol_ventrikul": {
+          "name": "Sol Ventrikül",
+          "description": "Kalbin sol alt odacığı. Vücuda kan pompalayan güçlü kas.",
+          "function": "Oksijen bakımından zengin kanı vücudun tüm organlarına pompalar.",
+          "properties": {
+            "pressure": "120/80 mmHg",
+            "wallThickness": "8-12 mm",
+            "volume": "70-120 ml"
+          }
+        },
+        "sag_ventrikul": {
+          "name": "Sağ Ventrikül",
+          "description": "Kalbin sağ alt odacığı. Akciğerlere kan pompalayan oda.",
+          "function": "Oksijen bakımından fakir kanı akciğerlere pompalar.",
+          "properties": {
+            "pressure": "25/5 mmHg",
+            "wallThickness": "3-5 mm",
+            "volume": "70-120 ml"
+          }
+        },
+        "sol_atrium": {
+          "name": "Sol Atrium",
+          "description": "Kalbin sol üst odacığı. Akciğerlerden kan alan oda.",
+          "function": "Akciğerlerden gelen oksijen bakımından zengin kanı sol ventriküle iletir.",
+          "properties": {
+            "pressure": "8-12 mmHg",
+            "wallThickness": "2-3 mm",
+            "volume": "25-35 ml"
+          }
+        },
+        "sag_atrium": {
+          "name": "Sağ Atrium",
+          "description": "Kalbin sağ üst odacığı. Vücuttan kan alan oda.",
+          "function": "Vücuttan gelen oksijen bakımından fakir kanı sağ ventriküle iletir.",
+          "properties": {
+            "pressure": "3-8 mmHg",
+            "wallThickness": "2-3 mm",
+            "volume": "25-35 ml"
+          }
+        },
+        "mitral_kapak": {
+          "name": "Mitral Kapak",
+          "description": "Sol atrium ile sol ventrikül arasındaki kapak.",
+          "function": "Kanın sol atriumdan sol ventriküle akmasını sağlar, geri akışını engeller.",
+          "properties": {
+            "leaflets": "2 yaprakçık",
+            "opening": "4-6 cm²",
+            "type": "Atriyoventriküler kapak"
+          }
+        },
+        "trikuspid_kapak": {
+          "name": "Triküspit Kapak",
+          "description": "Sağ atrium ile sağ ventrikül arasındaki kapak.",
+          "function": "Kanın sağ atriumdan sağ ventriküle akmasını sağlar, geri akışını engeller.",
+          "properties": {
+            "leaflets": "3 yaprakçık",
+            "opening": "4-6 cm²",
+            "type": "Atriyoventriküler kapak"
+          }
+        },
+        "aort_kapagi": {
+          "name": "Aort Kapağı",
+          "description": "Sol ventrikül ile aorta arasındaki kapak.",
+          "function": "Kanın sol ventrikülden aortaya akmasını sağlar, geri akışını engeller.",
+          "properties": {
+            "leaflets": "3 yaprakçık",
+            "opening": "2-4 cm²",
+            "type": "Semilünar kapak"
+          }
+        },
+        "pulmoner_kapak": {
+          "name": "Pulmoner Kapak",
+          "description": "Sağ ventrikül ile pulmoner arter arasındaki kapak.",
+          "function": "Kanın sağ ventrikülden pulmoner artere akmasını sağlar, geri akışını engeller.",
+          "properties": {
+            "leaflets": "3 yaprakçık",
+            "opening": "2-4 cm²",
+            "type": "Semilünar kapak"
+          }
+        }
+      },
+      "bloodVessels": {
+        "aorta": {
+          "name": "Aorta",
+          "description": "Vücudun en büyük arterisi.",
+          "function": "Sol ventrikülden çıkan oksijen bakımından zengin kanı vücuda dağıtır.",
+          "properties": {
+            "diameter": "2.5-3.5 cm",
+            "pressure": "120/80 mmHg",
+            "bloodType": "Oksijen bakımından zengin"
+          }
+        },
+        "pulmoner_arter": {
+          "name": "Pulmoner Arter",
+          "description": "Sağ ventrikülden akciğerlere kan taşıyan arter.",
+          "function": "Oksijen bakımından fakir kanı akciğerlere taşır.",
+          "properties": {
+            "diameter": "2.0-3.0 cm",
+            "pressure": "25/10 mmHg",
+            "bloodType": "Oksijen bakımından fakir"
+          }
+        },
+        "vena_kava": {
+          "name": "Vena Kava",
+          "description": "Vücuttan kalbe kan getiren büyük venler.",
+          "function": "Oksijen bakımından fakir kanı vücuttan sağ atriyuma getirir.",
+          "properties": {
+            "types": ["Üst vena kava", "Alt vena kava"],
+            "diameter": "2.0-3.5 cm",
+            "bloodType": "Oksijen bakımından fakir"
+          }
+        }
+      }
+    },
+    "english": {
+      "heartParts": {
+        "left_ventricle": {
+          "name": "Left Ventricle",
+          "description": "The left lower chamber of the heart. The strongest heart muscle.",
+          "function": "Pumps oxygen-rich blood to all organs of the body.",
+          "properties": {
+            "pressure": "120/80 mmHg",
+            "wallThickness": "8-12 mm",
+            "volume": "70-120 ml"
+          }
+        },
+        "right_ventricle": {
+          "name": "Right Ventricle",
+          "description": "The right lower chamber of the heart. Pumps blood to lungs.",
+          "function": "Pumps oxygen-poor blood to the lungs.",
+          "properties": {
+            "pressure": "25/5 mmHg",
+            "wallThickness": "3-5 mm",
+            "volume": "70-120 ml"
+          }
+        }
+      }
+    }
+  },
+  "educationalContent": {
+    "scenarios": [
+      {
+        "id": "heartbeat_cycle",
+        "title": "Kalp Atım Döngüsü",
+        "description": "Kalbin sistol ve diyastol dönemleri",
+        "steps": [
+          {
+            "phase": "systole",
+            "description": "Ventriküller kasılır ve kan pompalanır",
+            "duration": "0.3 saniye",
+            "highlightParts": ["sol_ventrikul", "sag_ventrikul"]
+          },
+          {
+            "phase": "diastole",
+            "description": "Ventriküller gevşer ve kan dolar",
+            "duration": "0.5 saniye",
+            "highlightParts": ["sol_atrium", "sag_atrium"]
+          }
+        ]
+      },
+      {
+        "id": "blood_flow",
+        "title": "Kan Dolaşımı",
+        "description": "Kanın kalp içindeki akış yolu",
+        "steps": [
+          {
+            "step": 1,
+            "description": "Oksijen fakir kan vena kavadan sağ atriyuma gelir",
+            "highlightParts": ["vena_kava", "sag_atrium"]
+          },
+          {
+            "step": 2,
+            "description": "Triküspit kapak açılır, kan sağ ventriküle geçer",
+            "highlightParts": ["trikuspid_kapak", "sag_ventrikul"]
+          },
+          {
+            "step": 3,
+            "description": "Sağ ventrikül kasılır, kan pulmoner artere pompalanır",
+            "highlightParts": ["sag_ventrikul", "pulmoner_kapak", "pulmoner_arter"]
+          },
+          {
+            "step": 4,
+            "description": "Oksijen zengin kan pulmoner venlerden sol atriyuma döner",
+            "highlightParts": ["pulmoner_venler", "sol_atrium"]
+          },
+          {
+            "step": 5,
+            "description": "Mitral kapak açılır, kan sol ventriküle geçer",
+            "highlightParts": ["mitral_kapak", "sol_ventrikul"]
+          },
+          {
+            "step": 6,
+            "description": "Sol ventrikül kasılır, kan aortaya pompalanır",
+            "highlightParts": ["sol_ventrikul", "aort_kapagi", "aorta"]
+          }
+        ]
+      }
+    ],
+    "commonQuestions": [
+      {
+        "question": "Sol ventrikül ne işe yarar?",
+        "answer": "Sol ventrikül kalbin en güçlü kasılı bölümüdür ve oksijen bakımından zengin kanı vücudun tüm organlarına pompalar. Yüksek basınçla çalışır ve vücut dolaşımını sağlar.",
+        "relatedParts": ["sol_ventrikul", "aort_kapagi", "aorta"]
+      },
+      {
+        "question": "Kalp kapakları neden önemlidir?",
+        "answer": "Kalp kapakları kanın tek yönde akmasını sağlar ve geri akışını engeller. Bu sayede kalp pompalama işlevini verimli bir şekilde yerine getirir.",
+        "relatedParts": ["mitral_kapak", "trikuspid_kapak", "aort_kapagi", "pulmoner_kapak"]
+      },
+      {
+        "question": "Kan dolaşımı nasıl çalışır?",
+        "answer": "Kan dolaşımı iki ana döngüden oluşur: pulmoner dolaşım (kalp-akciğer arası) ve sistemik dolaşım (kalp-vücut arası). Kalp bu iki döngüyü koordine eder.",
+        "relatedParts": ["sol_ventrikul", "sag_ventrikul", "aorta", "pulmoner_arter"]
+      },
+      {
+        "question": "Kalp nasıl çalışır?",
+        "answer": "Kalp elektriksel uyarılarla kasılır ve gevşer. Kasılma sırasında (sistol) kan pompalanır, gevşeme sırasında (diyastol) odacıklar kan ile dolar.",
+        "relatedParts": ["sol_ventrikul", "sag_ventrikul", "sol_atrium", "sag_atrium"]
+      }
+    ]
+  },
+  "aiPrompts": {
+    "systemPrompts": {
+      "medical": "Sen kalp anatomisi konusunda uzman bir tıp eğitmenisin. Türkçe olarak anlaşılır, bilimsel ve eğitici cevaplar ver. Cevaplarını 2-3 cümle ile sınırla.",
+      "educational": "Öğrencilere kalp anatomisini öğretmek için etkileşimli VR ortamında çalışıyorsun. Basit ve anlaşılır bir dil kullan.",
+      "contextual": "Kullanıcı şu anda {currentPart} bölümüne bakıyor. Bu bağlamda uygun ve spesifik bilgiler ver."
+    },
+    "fallbackResponses": {
+      "general": "Kalp, kan dolaşım sistemimizin merkezi olan hayati bir organdır. Dört odacık ve dört kapaktan oluşur.",
+      "chambers": "Kalp odacıkları kan pompalar ve alır. Ventriküller pompalama, atriumlar alma işlevini görür.",
+      "valves": "Kalp kapakları kanın doğru yönde akmasını sağlar ve geri akışını engeller.",
+      "vessels": "Kan damarları kanı kalp ile vücut arasında taşır. Arterler temiz, venler kirli kan taşır."
+    }
+  },
+  "configuration": {
+    "vrSettings": {
+      "targetFrameRate": 90,
+      "trackingSpace": "RoomScale",
+      "eyeTextureResolution": "2048x2048",
+      "msaaSamples": 4
+    },
+    "audioSettings": {
+      "speechLanguage": "tr-TR",
+      "voiceName": "tr-TR-EmelNeural",
+      "speechRate": 1.0,
+      "speechVolume": 0.8
+    },
+    "interactionSettings": {
+      "gazeHoldTime": 2.0,
+      "hapticFeedback": true,
+      "handTrackingEnabled": true,
+      "voiceCommandsEnabled": true
+    }
+  }
+}
