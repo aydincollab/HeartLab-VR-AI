@@ -71,12 +71,17 @@ namespace HeartLabVR.AI
 
         private IEnumerator ProcessMedicalQuery(string query, string anatomicalContext)
         {
+            string cachedResponse = null;
+            string enhancedPrompt = null;
+            UnityWebRequest request = null;
+            bool shouldProceedWithRequest = false;
+
             try
             {
                 // Check cache first for performance
                 if (useCache && responseCache != null)
                 {
-                    string cachedResponse = responseCache.GetCachedResponse(query, anatomicalContext);
+                    cachedResponse = responseCache.GetCachedResponse(query, anatomicalContext);
                     if (!string.IsNullOrEmpty(cachedResponse))
                     {
                         OnResponseReceived?.Invoke(cachedResponse);
@@ -85,7 +90,7 @@ namespace HeartLabVR.AI
                 }
 
                 // Prepare the medical prompt with context
-                string enhancedPrompt = promptManager.CreateMedicalPrompt(query, anatomicalContext);
+                enhancedPrompt = promptManager.CreateMedicalPrompt(query, anatomicalContext);
                 
                 // Create the API request
                 var requestData = new
@@ -102,16 +107,30 @@ namespace HeartLabVR.AI
                 string jsonData = JsonConvert.SerializeObject(requestData);
                 byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
 
-                using (UnityWebRequest request = new UnityWebRequest(baseUrl + medicalModel, "POST"))
+                request = new UnityWebRequest(baseUrl + medicalModel, "POST");
+                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+                request.downloadHandler = new DownloadHandlerBuffer();
+                request.SetRequestHeader("Content-Type", "application/json");
+                request.SetRequestHeader("Authorization", $"Bearer {apiKey}");
+                request.timeout = (int)requestTimeout;
+
+                shouldProceedWithRequest = true;
+            }
+            catch (Exception ex)
+            {
+                string fallbackResponse = GetFallbackResponse(query, anatomicalContext);
+                OnResponseReceived?.Invoke(fallbackResponse);
+                OnErrorOccurred?.Invoke($"Request preparation error: {ex.Message}");
+                yield break;
+            }
+
+            // Send request outside try-catch to allow yield return
+            if (shouldProceedWithRequest && request != null)
+            {
+                yield return request.SendWebRequest();
+
+                try
                 {
-                    request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-                    request.downloadHandler = new DownloadHandlerBuffer();
-                    request.SetRequestHeader("Content-Type", "application/json");
-                    request.SetRequestHeader("Authorization", $"Bearer {apiKey}");
-                    request.timeout = (int)requestTimeout;
-
-                    yield return request.SendWebRequest();
-
                     if (request.result == UnityWebRequest.Result.Success)
                     {
                         string response = ProcessAPIResponse(request.downloadHandler.text);
@@ -131,12 +150,16 @@ namespace HeartLabVR.AI
                         OnErrorOccurred?.Invoke($"API Error: {request.error}");
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                string fallbackResponse = GetFallbackResponse(query, anatomicalContext);
-                OnResponseReceived?.Invoke(fallbackResponse);
-                OnErrorOccurred?.Invoke($"Exception: {ex.Message}");
+                catch (Exception ex)
+                {
+                    string fallbackResponse = GetFallbackResponse(query, anatomicalContext);
+                    OnResponseReceived?.Invoke(fallbackResponse);
+                    OnErrorOccurred?.Invoke($"Response processing error: {ex.Message}");
+                }
+                finally
+                {
+                    request?.Dispose();
+                }
             }
         }
 

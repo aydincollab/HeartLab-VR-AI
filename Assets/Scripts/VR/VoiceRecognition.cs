@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using HeartLabVR.Utilities;
 
 namespace HeartLabVR.VR
 {
@@ -151,10 +152,15 @@ namespace HeartLabVR.VR
             IsListening = true;
             OnListeningStarted?.Invoke();
 
+            string microphoneName = null;
+            float recognitionStartTime = 0f;
+            float lastSoundTime = 0f;
+            bool initializationSuccessful = false;
+
             try
             {
                 // Start microphone recording
-                string microphoneName = Microphone.devices.Length > 0 ? Microphone.devices[0] : null;
+                microphoneName = Microphone.devices.Length > 0 ? Microphone.devices[0] : null;
                 
                 if (string.IsNullOrEmpty(microphoneName))
                 {
@@ -164,43 +170,67 @@ namespace HeartLabVR.VR
 
                 microphoneClip = Microphone.Start(microphoneName, true, (int)recognitionTimeout, 44100);
                 
-                float recognitionStartTime = Time.time;
-                float lastSoundTime = Time.time;
-                
+                recognitionStartTime = Time.time;
+                lastSoundTime = Time.time;
+                initializationSuccessful = true;
+            }
+            catch (Exception ex)
+            {
+                OnSpeechRecognitionError?.Invoke($"Recognition initialization error: {ex.Message}");
+                yield break;
+            }
+
+            // Main recognition loop (outside try-catch to allow yield return)
+            if (initializationSuccessful)
+            {
                 while (IsListening && (Time.time - recognitionStartTime) < recognitionTimeout)
                 {
-                    // Check for audio input
-                    if (HasAudioInput())
-                    {
-                        lastSoundTime = Time.time;
-                    }
+                    bool hasInput = false;
                     
-                    // Check for silence timeout
-                    if ((Time.time - lastSoundTime) > silenceTimeout)
+                    try
                     {
-                        ProcessRecognitionResult(""); // Timeout
+                        // Check for audio input
+                        if (HasAudioInput())
+                        {
+                            lastSoundTime = Time.time;
+                            hasInput = true;
+                        }
+                        
+                        // Check for silence timeout
+                        if ((Time.time - lastSoundTime) > silenceTimeout)
+                        {
+                            ProcessRecognitionResult(""); // Timeout
+                            break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        OnSpeechRecognitionError?.Invoke($"Recognition loop error: {ex.Message}");
                         break;
                     }
 
                     yield return new WaitForSeconds(0.1f);
                 }
 
-                // In a real implementation, this would process the audio with Azure Speech Services
-                // For now, we'll simulate recognition with fallback processing
-                if (IsListening)
+                // Process final recognition result
+                try
                 {
-                    ProcessFallbackRecognition();
+                    // In a real implementation, this would process the audio with Azure Speech Services
+                    // For now, we'll simulate recognition with fallback processing
+                    if (IsListening)
+                    {
+                        ProcessFallbackRecognition();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    OnSpeechRecognitionError?.Invoke($"Recognition processing error: {ex.Message}");
                 }
             }
-            catch (Exception ex)
-            {
-                OnSpeechRecognitionError?.Invoke($"Recognition error: {ex.Message}");
-            }
-            finally
-            {
-                IsListening = false;
-                OnListeningStopped?.Invoke();
-            }
+
+            // Cleanup
+            IsListening = false;
+            OnListeningStopped?.Invoke();
         }
 
         private void StartFallbackListening()

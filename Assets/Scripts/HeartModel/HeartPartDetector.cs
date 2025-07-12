@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using HeartLabVR.Utilities;
 
 namespace HeartLabVR.HeartModel
 {
