@@ -151,7 +151,7 @@ namespace HeartLabVR.VR
                     // Generate new audio clip
                     if (isInitialized)
                     {
-                        audioClip = yield return StartCoroutine(GenerateAzureTTSAudio(text));
+                        audioClip = GenerateAzureTTSAudio(text);
                     }
                     else
                     {
@@ -186,12 +186,10 @@ namespace HeartLabVR.VR
             }
         }
 
-        private IEnumerator GenerateAzureTTSAudio(string text)
+        private AudioClip GenerateAzureTTSAudio(string text)
         {
             // This would integrate with Azure Speech Services TTS API
             // For now, we'll simulate the API call and return fallback audio
-            
-            yield return new WaitForSeconds(0.5f); // Simulate API delay
             
             // In a real implementation, you would:
             // 1. Create SSML with the text and voice settings
@@ -202,7 +200,7 @@ namespace HeartLabVR.VR
             Debug.Log($"Generating Azure TTS audio for: {text.Substring(0, Mathf.Min(50, text.Length))}...");
             
             // Return fallback for now
-            yield return GenerateFallbackAudio(text);
+            return GenerateFallbackAudio(text);
         }
 
         private AudioClip GenerateFallbackAudio(string text)

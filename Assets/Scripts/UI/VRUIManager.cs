@@ -367,7 +367,7 @@ namespace HeartLabVR.UI
             
             // Add CanvasScaler
             CanvasScaler scaler = labelGO.AddComponent<CanvasScaler>();
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantWorldSize;
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
             scaler.scaleFactor = 0.01f;
             
             // Add GraphicRaycaster
